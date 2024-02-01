@@ -1,0 +1,56 @@
+@import './reset.css';
+
+img {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+}
+
+:root {
+  /* Colors */
+--white: #fff;
+--back: #000;
+--grey-300: #eeeeee;
+--grey-500: #CCC;
+--grey-700: #64635F;
+--grey-900: #292929;
+
+/* Semantic colors */
+--bg: rgba(255, 255, 255, 0.35);
+--bg-negative: var(--grey-900);
+
+/* Sizes  */
+--size-4: 0.4rem;
+--size-8: 0.8rem;
+--size-12: 1.2rem;
+--size-14: 1.4rem;
+--size-16: 1.6rem;
+--size-24: 2.4rem;
+--size-32: 3.2rem;
+--size-40: 4.0rem;
+
+/* Variables utilities */
+--max-width-constrain: min(100%, 900px);
+--radius-sm: 4px;
+--radius-lg: 8px;
+--radius-xl: 12px;
+--shadow-medium: 
+  0 6px 24px -2px rgb(54 54 54 / 8%), 
+  0 4px 8px rgb(54 54 54 / 4%);
+--shadow-large:
+    0 36px 72px rgb(54 54 54 / 8%),
+    0 8px 24px rgb(54 54 54 / 8%),
+    0 2px 8px rgb(54 54 54 / 4%);
+}
+
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+body {
+  font-size: var(--size-16);
+}
