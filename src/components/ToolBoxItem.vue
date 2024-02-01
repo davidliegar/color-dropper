@@ -62,7 +62,7 @@ const imageUrl = new URL(`/src/assets/${props.icon}`, import.meta.url).href
   }
 
   &:checked + .label {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
   }
 }
 </style>

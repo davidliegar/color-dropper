@@ -4,6 +4,7 @@
     <tool-box
       v-model="data.currentTool"
       :saved-colors="data.savedColors"
+      @handle-img="img => canvasRef && canvasUseCases.loadImgToCanvas(canvasRef, img)"
     />
 
     <canvas 

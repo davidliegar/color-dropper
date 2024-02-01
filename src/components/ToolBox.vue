@@ -3,12 +3,10 @@
     <h1 class="title">
       Color dropper
     </h1>
-
-    <hr />
-
-    <input 
-      type="file" 
-      placeholder="upload img"
+    
+    <picsart-input-file
+      class="input"
+      @change="handleImg"
     />
 
     <hr />
@@ -39,6 +37,7 @@
 <script lang="ts" setup>
 import { ToolEnum } from '@/core/tools'
 import ToolBoxItem from './ToolBoxItem.vue'
+import PicsartInputFile from './PicsartInputFile.vue'
 import type { Color } from '@/core/canvas'
 import { computed } from 'vue';
 import { CANVAS_USE_CASES, injectStrict } from '@/injects'
@@ -49,6 +48,10 @@ const props = defineProps<{
   savedColors: Color[]
 }>()
 
+const emit = defineEmits<{
+  handleImg: [file: string]
+}>()
+
 const currentTool = defineModel<ToolEnum>()
 
 const savedColorsComputed = computed(() => {
@@ -57,6 +60,13 @@ const savedColorsComputed = computed(() => {
     hex: canvasUseCases.rgbToHex(color)
   }))
 })
+
+function handleImg (event: Event) {
+  const file = (event.target as HTMLInputElement)?.files?.[0]
+  if (file) {
+    emit('handleImg', URL.createObjectURL(file))
+  }
+}
 </script>
 
 <style lang="postcss" scoped>
@@ -116,5 +126,9 @@ const savedColorsComputed = computed(() => {
   &::-webkit-scrollbar-thumb {
     background-color:  var(--grey-500);
   }
+}
+
+.input {
+  margin-block: var(--size-16);
 }
 </style>
