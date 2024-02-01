@@ -21,7 +21,7 @@ import type { ToolEnum } from '@/core/tools';
 const props = defineProps<{
   value: ToolEnum
   icon: string
-  label:string
+  label: string
 }>()
 
 const model = defineModel<ToolEnum>()

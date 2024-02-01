@@ -10,6 +10,7 @@
     <canvas 
       ref="canvasRef"
       class="canvas"
+      :class="{ active: data.currentTool === ToolEnum.ColorDropper }"
       @mousemove="getColor"
       @click="saveColor"
     />
@@ -23,6 +24,7 @@ import { ToolEnum } from '@/core/tools'
 import defaultImg from '@/assets/1920x1080-4598441-beach-water-pier-tropical-sky-sea-clouds-island-palm-trees.jpg'
 import { CANVAS_USE_CASES, injectStrict } from '@/injects'
 import type { Color } from '@/core/canvas'
+import { debounce } from '@/utils/debounce';
 
 const canvasUseCases = injectStrict(CANVAS_USE_CASES)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
@@ -64,15 +66,22 @@ function saveColor () {
   data.savedColors.push(data.currentColor)
 }
 
-onMounted(() => {
+function draw () {
   if (!canvasRef.value) return
+  
   canvasUseCases.setCanvasViewport(canvasRef.value)
   canvasUseCases.loadImgToCanvas(canvasRef.value, defaultImg)
+}
+onMounted(() => {
+  draw()
 })
+
+
+window.addEventListener('resize', debounce(draw), false);
 </script>
 
 <style lang="postcss">
-.canvas {
+.canvas.active {
   cursor: pointer;
 }
 </style>
