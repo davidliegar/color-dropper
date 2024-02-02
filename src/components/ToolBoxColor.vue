@@ -1,5 +1,5 @@
 <template>
-  <div class="toolBoxColor" @click.self="toClipBoard">
+  <div class="tool-box-color" @click.self="toClipBoard">
     <div class="color" />
     <div class="backdrop" />
 
@@ -51,7 +51,7 @@ function toClipBoard() {
 </script>
 
 <style lang="postcss" scoped>
-.toolBoxColor {
+.tool-box-color {
   width: 100%;
   height: var(--size-32);
   display: grid;
@@ -60,7 +60,6 @@ function toClipBoard() {
   padding: 0 0.5em;
   margin-block: var(--size-8);
   gap: var(--size-8);
-  cursor: pointer;
   font-size: var(--size-12);
   position: relative;
   cursor: pointer;
@@ -69,7 +68,7 @@ function toClipBoard() {
 .color {
   width: var(--size-24);
   height: var(--size-24);
-  background: v-bind(hexColor);
+  background: v-bind(hexcolor);
 }
 
 .backdrop {
@@ -91,21 +90,17 @@ function toClipBoard() {
   line-height: 1.5em;
   padding: 0.5em 3.5rem 0.5em 1em;
   appearance: none;
-
   background-image: linear-gradient(45deg, transparent 50%, var(--white) 50%),
     linear-gradient(135deg, var(--white) 50%, transparent 50%),
     linear-gradient(to right, var(--white), var(--white));
-
   background-position:
     calc(100% - 16px) calc(1em + 2px),
     calc(100% - 12px) calc(1em + 2px),
     calc(100% - 2.5em) 0.5em;
-
   background-size:
     5px 5px,
     5px 5px,
     1px 1.5em;
-
   background-repeat: no-repeat;
 
   &:focus {

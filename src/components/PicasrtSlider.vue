@@ -83,7 +83,6 @@ function updateSlider() {
     background: var(--bg);
     box-shadow: var(--shadow-large);
     backdrop-filter: blur(8.2px);
-    -webkit-backdrop-filter: blur(8.2px);
     border: 1px solid var(--white);
     cursor: pointer;
     transition: background 0.15s ease-in-out;
@@ -92,12 +91,10 @@ function updateSlider() {
   &::-moz-range-thumb {
     width: 2rem;
     height: 2rem;
-    border: 0;
     border-radius: 50%;
     box-shadow: var(--shadow-large);
     backdrop-filter: blur(8.2px);
-    background: rgba(255, 255, 255, 0.7);
-    -webkit-backdrop-filter: blur(8.2px);
+    background: rgb(255 255 255 / 70%);
     border: 1px solid var(--white);
     cursor: pointer;
     transition: background 0.15s ease-in-out;

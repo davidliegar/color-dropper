@@ -23,11 +23,8 @@ const imageUrl = new URL(`/src/assets/${props.icon}`, import.meta.url).href
 <style lang="postcss" scoped>
 .label {
   position: relative;
-  border: 1px solid var(--white);
   cursor: pointer;
-  border-radius: 0.4rem;
   height: 100%;
-  display: grid;
   grid-template-rows: 24px auto;
   font-size: var(--size-16);
   display: flex;
@@ -37,7 +34,6 @@ const imageUrl = new URL(`/src/assets/${props.icon}`, import.meta.url).href
   border-radius: 16px;
   box-shadow: var(--shadow-large);
   backdrop-filter: blur(8.2px);
-  -webkit-backdrop-filter: blur(8.2px);
   border: 1px solid var(--white);
 }
 
@@ -49,11 +45,11 @@ const imageUrl = new URL(`/src/assets/${props.icon}`, import.meta.url).href
   display: none;
 
   &:hover + .label {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgb(255 255 255 / 70%);
   }
 
   &:checked + .label {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgb(255 255 255 / 90%);
   }
 }
 </style>

@@ -19,7 +19,7 @@
       <picasrt-slider v-model="form.zoom" />
     </div>
 
-    <div class="savedColors">
+    <div class="saved-colors">
       <tool-box-color v-for="(color, index) in props.savedColors" :key="index" :color="color" />
     </div>
   </aside>
@@ -76,7 +76,6 @@ function handleImg(event: Event) {
   border-radius: 16px;
   box-shadow: var(--shadow-large);
   backdrop-filter: blur(8.2px);
-  -webkit-backdrop-filter: blur(8.2px);
   border: 1px solid var(--white);
   padding: var(--size-24);
   max-height: calc(100vh - 60px);
@@ -99,10 +98,9 @@ function handleImg(event: Event) {
   }
 }
 
-.savedColors {
+.saved-colors {
   margin-block-start: var(--size-8);
   overflow: auto;
-
   scrollbar-width: thin;
 
   &::-webkit-scrollbar {

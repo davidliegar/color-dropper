@@ -15,7 +15,7 @@
       @click="saveColor"
     />
 
-    <canvas ref="canvasDetailRef" class="canvasDetail" />
+    <canvas ref="canvasDetailRef" class="canvas-detail" />
   </main>
 </template>
 
@@ -135,7 +135,7 @@ window.addEventListener(
 </script>
 
 <style lang="postcss">
-.canvasDetail {
+.canvas-detail {
   position: absolute;
   top: 0;
   left: 0;

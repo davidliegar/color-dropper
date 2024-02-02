@@ -27,7 +27,6 @@ const emit = defineEmits<{
   .label {
     cursor: pointer;
     font-weight: 400;
-    border: 1px solid var(--white);
     width: 100%;
     padding: var(--size-8) var(--size-16);
     display: block;
@@ -36,11 +35,10 @@ const emit = defineEmits<{
     border-radius: 16px;
     box-shadow: var(--shadow-large);
     backdrop-filter: blur(8.2px);
-    -webkit-backdrop-filter: blur(8.2px);
     border: 1px solid var(--white);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgb(255 255 255 / 70%);
     }
   }
 }
