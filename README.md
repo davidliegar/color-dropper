@@ -2,7 +2,7 @@
 
 **Live envrioment**: https://color-dropper-umber.vercel.app/
 
-color dropper is a tool that enables users to upload an image and inspect the different colors of each pixel in hexadecimal, RGB, and HSL formats.
+Color dropper is a tool that enables users to upload an image and inspect the different colors of each pixel in hexadecimal, RGB and HSL formats.
 
 To install dependencies:
 
@@ -14,8 +14,10 @@ npm run dev
 
 ### Npm scripts ###
 
+To install the dependencies
+
 ```sh
-npm i
+npm install
 ```
 
 To run the frontend project
