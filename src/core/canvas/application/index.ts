@@ -1,4 +1,6 @@
 export * from './getColorFromPixel'
 export * from './setCanvasViewport'
-export * from './loadImageToCanvas'
+export * from './drawImageIntoCanvas'
 export * from './rgbToHex'
+export * from './zoomImgToCanvas'
+export * from './loadImg'
