@@ -1,5 +1,5 @@
 <template>
-  <div class="tool-box-color" @click.self="toClipBoard">
+  <div class="tool-box-color" data-testid="color" @click.self="toClipBoard">
     <div class="color" />
     <div class="backdrop" />
 
