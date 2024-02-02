@@ -29,8 +29,6 @@ img {
 --size-32: 3.2rem;
 --size-40: 4.0rem;
 
-/* Variables utilities */
---max-width-constrain: min(100%, 900px);
 --radius-sm: 4px;
 --radius-lg: 8px;
 --radius-xl: 12px;

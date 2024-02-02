@@ -2,15 +2,15 @@
 <template>
   <main>
     <tool-box
-      v-model="data.currentTool"
+      v-model="data.currentTools"
       :saved-colors="data.savedColors"
       @handle-img="img => restart(img)"
+      @mouseenter="mouseEnter"
     />
 
     <canvas 
       ref="canvasRef"
       class="canvas"
-      :class="{ active: data.currentTool === ToolEnum.ColorDropper }"
       @mousemove="getColor"
       @click="saveColor"
     />
@@ -36,21 +36,26 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const canvasDetailRef = ref<HTMLCanvasElement | null>(null)
 
 interface Data {
-  currentTool?: ToolEnum
+  currentTools: Record<ToolEnum, boolean | number>
   currentColor?: Color
   savedColors: Color[]
   defaultImgElement?: HTMLImageElement
   borderImgElement?: HTMLImageElement
   hasFrameBeenProcessed: boolean
 }
+
 const data = reactive<Data>({
+  currentTools: {
+    [ToolEnum.ColorDropper]: false,
+    [ToolEnum.Zoom]: 50
+  },
   hasFrameBeenProcessed: true,
   savedColors: []
 })
 
 function getColor(e: MouseEvent) {
   if (
-    data.currentTool !== ToolEnum.ColorDropper ||
+    !data.currentTools[ToolEnum.ColorDropper] ||
     !data.hasFrameBeenProcessed
   ) return
 
@@ -62,7 +67,7 @@ function getColor(e: MouseEvent) {
 function saveColor () {
   if (
     !canvasRef.value ||
-    data.currentTool !== ToolEnum.ColorDropper ||
+    !data.currentTools[ToolEnum.ColorDropper] ||
     !data.currentColor
   ) {
     return
@@ -80,7 +85,7 @@ function positionDetailCanvas (e: MouseEvent) {
 
   canvasUseCases.zoomImgToCanvas(canvasDetailRef.value, canvasRef.value, {
     img: data.borderImgElement,
-    zoom: 50,
+    zoom: (typeof data.currentTools.Zoom === 'number') ?  data.currentTools.Zoom : 50,
     cropWidth: 300,
     x: e.pageX,
     y: e.pageY,
@@ -91,7 +96,6 @@ async function getImg (img = defaultImg) {
   data.defaultImgElement = await canvasUseCases.loadImg(img)
   data.borderImgElement = await canvasUseCases.loadImg(borderImg)
 }
-
 
 function update (e: MouseEvent) {
   if (!canvasRef.value) {
@@ -132,24 +136,25 @@ async function restart (img = defaultImg) {
 
 }
 
+function mouseEnter() {
+  if (!canvasDetailRef.value) return
+  canvasUseCases.clearCanvas(canvasDetailRef.value)
+}
+
 onMounted(restart)
 
 window.addEventListener('resize', () => {
   if (!data.hasFrameBeenProcessed) return
 
   requestAnimationFrame(draw)
-}, false);
+}, false)
 </script>
 
 <style lang="postcss">
-.canvas.active {
-  cursor: pointer;
-}
-
 .canvasDetail {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
 }
-</style>@/core/utilities/debounce
+</style>

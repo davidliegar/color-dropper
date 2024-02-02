@@ -1,35 +1,37 @@
 <template>
   <aside class="toolbox">
-    <h1 class="title">
-      Color dropper
-    </h1>
+    <div>
+      <h1 class="title">
+        Color dropper
+      </h1>
+      
+      <picsart-input-file
+        class="input"
+        @change="handleImg"
+      />
+  
+      <hr />
+  
+      <h2 class="subtitle">
+        Tools 
+      </h2>
+  
+      <tool-box-item 
+        id="Color"
+        icon="IconColorPicker.svg"
+        label="Color dropper"
+        v-model="form.colorDropper"
+      />
+  
+      <picasrt-slider v-model="form.zoom" />
+    </div>
     
-    <picsart-input-file
-      class="input"
-      @change="handleImg"
-    />
-
-    <hr />
-
-    <h2 class="subtitle">
-      Tools 
-    </h2>
-
-    <tool-box-item 
-      :value="ToolEnum.ColorDropper"
-      icon="IconColorPicker.svg"
-      label="Color dropper"
-      v-model="currentTool"
-    />
     <div class="savedColors">
-      <div 
-        v-for="(color, index) in savedColorsComputed"
-        class="color"
+      <tool-box-color
+        v-for="(color, index) in props.savedColors"
         :key="index"
-        :style="`--savedColor: ${color.hex}`"
-      >
-        {{ color.hex }}
-      </div>
+        :color="color"
+      />
     </div>
   </aside>
 </template>
@@ -37,28 +39,34 @@
 <script lang="ts" setup>
 import { ToolEnum } from '@/core/tools'
 import ToolBoxItem from './ToolBoxItem.vue'
+import PicasrtSlider from './PicasrtSlider.vue'
 import PicsartInputFile from './PicsartInputFile.vue'
 import type { Color } from '@/core/canvas'
-import { computed } from 'vue';
-import { CANVAS_USE_CASES, injectStrict } from '@/injects'
+import { reactive, watchEffect } from 'vue'
+import ToolBoxColor from './ToolBoxColor.vue'
 
-const canvasUseCases = injectStrict(CANVAS_USE_CASES)
+type Model = Record<ToolEnum, boolean | number>
 
 const props = defineProps<{
-  savedColors: Color[]
+  savedColors: Color[],
+  modelValue: Model
 }>()
 
 const emit = defineEmits<{
   handleImg: [file: string]
+  'update:modelValue': [form: Model]
 }>()
 
-const currentTool = defineModel<ToolEnum>()
+const form = reactive({
+  colorDropper: !!props.modelValue.ColorDropper,
+  zoom: (typeof props.modelValue.Zoom === 'number') ? props.modelValue.Zoom : 50
+})
 
-const savedColorsComputed = computed(() => {
-  return props.savedColors.map(color => ({
-    rgb: color,
-    hex: canvasUseCases.rgbToHex(color)
-  }))
+watchEffect(() => {
+  emit('update:modelValue', {
+    [ToolEnum.ColorDropper]: form.colorDropper,
+    [ToolEnum.Zoom]: form.zoom
+  })
 })
 
 function handleImg (event: Event) {
@@ -83,6 +91,8 @@ function handleImg (event: Event) {
   border: 1px solid var(--white);
   padding: var(--size-24);
   max-height: calc(100vh - 60px);
+  display: grid;
+  grid-template-rows: auto 1fr;
 
   & .title {
     font-size: var(--size-24);
@@ -100,19 +110,8 @@ function handleImg (event: Event) {
   }
 }
 
-.color {
-  width: 100%;
-  height: var(--size-32);
-  background: var(--savedColor, var(--black));
-  margin-block: var(--size-8);
-  display: flex;
-  align-items: center;
-  padding: 0 0.5em;
-}
-
 .savedColors {
   margin-block-start: var(--size-8);
-  max-height: 70vh;
   overflow: auto;
 
   scrollbar-width: thin;

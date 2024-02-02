@@ -5,6 +5,8 @@ import {
   loadImg,
   rgbToHex,
   zoomImgToCanvas,
+  clearCanvas,
+  rgbToHsl
 } from '@/core/canvas'
 
 export function provideCanvasUseCases () {
@@ -14,6 +16,8 @@ export function provideCanvasUseCases () {
     drawImgIntoCanvasFullWidth: drawImgIntoCanvasFullWidth(),
     rgbToHex: rgbToHex(),
     zoomImgToCanvas: zoomImgToCanvas(),
-    loadImg: loadImg()
+    loadImg: loadImg(),
+    clearCanvas: clearCanvas(),
+    rgbToHsl: rgbToHsl()
   }
 }

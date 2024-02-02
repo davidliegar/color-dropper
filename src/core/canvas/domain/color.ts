@@ -5,3 +5,4 @@ export interface Color {
 }
 
 export type HexColor = `#${string}`
+export type HslColor = `hsl(${number}, ${number}%, ${number}%)`

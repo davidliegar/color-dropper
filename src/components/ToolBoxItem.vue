@@ -1,14 +1,12 @@
 <template>
   <div>
     <input 
-      :id="props.value.toString()"
+      :id="props.id.toString()"
       class="input"
       type="checkbox" 
-      :true-value="props.value"
-      :false-value="undefined"
       v-model="model"
     >
-    <label class="label" :for="props.value.toString()">
+    <label class="label" :for="props.id.toString()">
       <img class="img" :src="imageUrl">
       {{ props.label }}
     </label>
@@ -16,15 +14,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { ToolEnum } from '@/core/tools';
-
 const props = defineProps<{
-  value: ToolEnum
+  id: string
   icon: string
   label: string
 }>()
 
-const model = defineModel<ToolEnum>()
+const model = defineModel<boolean>()
 
 const imageUrl = new URL(`/src/assets/${props.icon}`, import.meta.url).href
 </script>
