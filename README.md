@@ -1,52 +1,71 @@
 # color-dropper
 
-This template should help get you started developing with Vue 3 in Vite.
+**Live envrioment**: https://color-dropper-umber.vercel.app/
 
-## Recommended IDE Setup
+color dropper is a tool that enables users to upload an image and inspect the different colors of each pixel in hexadecimal, RGB, and HSL formats.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+To install dependencies:
 
 ```sh
+cd color-dropper
 npm install
+npm run dev
 ```
 
-### Compile and Hot-Reload for Development
+### Npm scripts ###
+
+```sh
+npm i
+```
+
+To run the frontend project
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
+To lint all the js and ts
 ```sh
-npm run build
+npm run lint:ts
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+To lint the styles
+
+```sh
+npm run lint:css
+```
+
+To run the unit testing
 
 ```sh
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
+To run the E2E
 ```sh
-npm run lint
+npm run test:e2e
 ```
+
+To launch the interactive GUI of cypress to manually run tests
+```sh
+npm run test:e2e:gui
+```
+
+### Architecture
+
+It has been decided to implement a hexagonal architecture for the project. The core folder is where the product use cases are defined. We have two entities; the main entity is "canvas." The canvas contains all the code (framework agnostic) necessary for the view to construct the product.
+
+As the project lacks storage features, there is no need for the implementation of a repository and the infrastructure layer.
+
+Working with use cases makes the alignment with the product way easier because at any time, it is easy to know what can be done with each entity.
+
+On the view side, Vue with TypeScript (TS) and Single File Component (SFC) features have been utilized. I decided not to implement a global state with Pinia or reactive composables because it would be an overkill for this small project. However, the implementation would be straightforward.
+
+In the testing part, for unit testing, vitest and vue testing library are used.There is a proof of concept for using snapshots to test the canvas. End-to-End tests are done using Cypress.
+
+### Next steps
+
+- Implement storybook in the components folder
+- Mobile version
+- Allow to move or close the tools
+- Pre commits hooks using Husky
