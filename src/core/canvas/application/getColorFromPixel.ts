@@ -1,14 +1,19 @@
 import type { Color, position } from '../domain'
 
-export function getColorFromPixel () {
-  return (canvas: HTMLCanvasElement, mouse: position): Color => {  
-    const ctx = canvas.getContext("2d", { willReadFrequently: true })
+export function getColorFromPixel() {
+  return (canvas: HTMLCanvasElement, mouse: position): Color => {
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
 
     if (!ctx) {
       throw new Error()
     }
 
-    const pxData = ctx.getImageData(mouse.x * window.devicePixelRatio, mouse.y * window.devicePixelRatio, 1, 1)
+    const pxData = ctx.getImageData(
+      mouse.x * window.devicePixelRatio,
+      mouse.y * window.devicePixelRatio,
+      1,
+      1
+    )
 
     const color = {
       R: pxData.data[0],

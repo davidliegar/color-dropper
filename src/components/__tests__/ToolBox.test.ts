@@ -10,11 +10,13 @@ describe('toolBox Component', () => {
 
     const props = {
       modelValue: {},
-      savedColors: [{
-        R: 123,
-        G: 10,
-        B: 24,
-      }]
+      savedColors: [
+        {
+          R: 123,
+          G: 10,
+          B: 24
+        }
+      ]
     }
 
     render(toolBox, {
@@ -25,7 +27,7 @@ describe('toolBox Component', () => {
       },
 
       props
-    }) 
+    })
 
     screen.getByText(canvasUseCases.rgbToHex(props.savedColors[0]))
   })

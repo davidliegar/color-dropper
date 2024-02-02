@@ -1,19 +1,11 @@
 <template>
-  <div 
-    class="toolBoxColor"
-    @click.self="toClipBoard"
-  >
+  <div class="toolBoxColor" @click.self="toClipBoard">
     <div class="color" />
     <div class="backdrop" />
 
     {{ formatToShow }}
 
-    <select 
-      v-model="colorFormat"
-      class="select"
-      name="colors" 
-      id="colors"
-    >
+    <select v-model="colorFormat" class="select" name="colors" id="colors">
       <option value="hex">Hex</option>
       <option value="rgb">RGB</option>
       <option value="hsl">HSL</option>
@@ -23,8 +15,8 @@
 
 <script lang="ts" setup>
 import type { Color } from '@/core/canvas'
-import { CANVAS_USE_CASES, injectStrict } from '@/injects';
-import { computed, ref } from 'vue';
+import { CANVAS_USE_CASES, injectStrict } from '@/injects'
+import { computed, ref } from 'vue'
 const canvasUseCases = injectStrict(CANVAS_USE_CASES)
 
 const props = defineProps<{
@@ -47,13 +39,13 @@ const rgbColor = computed(() => {
 
 const formatToShow = computed(() => {
   return {
-    'hex': hexColor.value,
-    'rgb': rgbColor.value,
-    'hsl': hslColor.value
+    hex: hexColor.value,
+    rgb: rgbColor.value,
+    hsl: hslColor.value
   }[colorFormat.value]
 })
 
-function toClipBoard () {
+function toClipBoard() {
   navigator.clipboard.writeText(formatToShow.value)
 }
 </script>
@@ -99,9 +91,8 @@ function toClipBoard () {
   line-height: 1.5em;
   padding: 0.5em 3.5rem 0.5em 1em;
   appearance: none;
-    
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--white) 50%),
+
+  background-image: linear-gradient(45deg, transparent 50%, var(--white) 50%),
     linear-gradient(135deg, var(--white) 50%, transparent 50%),
     linear-gradient(to right, var(--white), var(--white));
 

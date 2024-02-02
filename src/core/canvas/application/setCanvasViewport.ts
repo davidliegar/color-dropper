@@ -1,5 +1,5 @@
-export function setCanvasViewport () {
-  return (canvas: HTMLCanvasElement): HTMLCanvasElement => {  
+export function setCanvasViewport() {
+  return (canvas: HTMLCanvasElement): HTMLCanvasElement => {
     canvas.width = document.documentElement.clientWidth * window.devicePixelRatio
     canvas.height = document.documentElement.clientHeight * window.devicePixelRatio
 

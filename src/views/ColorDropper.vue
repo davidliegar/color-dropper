@@ -1,14 +1,13 @@
-
 <template>
   <main>
     <tool-box
       v-model="data.currentTools"
       :saved-colors="data.savedColors"
-      @handle-img="img => restart(img)"
+      @handle-img="(img) => restart(img)"
       @mouseenter="mouseEnter"
     />
 
-    <canvas 
+    <canvas
       ref="canvasRef"
       data-testid="canvas"
       class="canvas"
@@ -16,15 +15,12 @@
       @click="saveColor"
     />
 
-    <canvas 
-      ref="canvasDetailRef"
-      class="canvasDetail"
-    />
+    <canvas ref="canvasDetailRef" class="canvasDetail" />
   </main>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue'
 import ToolBox from '@/components/ToolBox.vue'
 import { ToolEnum } from '@/core/tools'
 import defaultImg from '@/assets/1920x1080-4598441-beach-water-pier-tropical-sky-sea-clouds-island-palm-trees.jpg'
@@ -55,39 +51,28 @@ const data = reactive<Data>({
 })
 
 function getColor(e: MouseEvent) {
-  if (
-    !data.currentTools[ToolEnum.ColorDropper] ||
-    !data.hasFrameBeenProcessed
-  ) return
+  if (!data.currentTools[ToolEnum.ColorDropper] || !data.hasFrameBeenProcessed) return
 
   data.hasFrameBeenProcessed = false
 
   requestAnimationFrame(() => update(e))
 }
 
-function saveColor () {
-  if (
-    !canvasRef.value ||
-    !data.currentTools[ToolEnum.ColorDropper] ||
-    !data.currentColor
-  ) {
+function saveColor() {
+  if (!canvasRef.value || !data.currentTools[ToolEnum.ColorDropper] || !data.currentColor) {
     return
   }
 
   data.savedColors.push(data.currentColor)
 }
 
-function positionDetailCanvas (e: MouseEvent) {
-  if (
-    !canvasRef.value ||
-    !canvasDetailRef.value ||
-    !data.borderImgElement ||
-    !data.currentColor
-  ) return
+function positionDetailCanvas(e: MouseEvent) {
+  if (!canvasRef.value || !canvasDetailRef.value || !data.borderImgElement || !data.currentColor)
+    return
 
   canvasUseCases.zoomImgToCanvas(canvasDetailRef.value, canvasRef.value, {
     img: data.borderImgElement,
-    zoom: (typeof data.currentTools.Zoom === 'number') ?  data.currentTools.Zoom : 50,
+    zoom: typeof data.currentTools.Zoom === 'number' ? data.currentTools.Zoom : 50,
     cropWidth: 300,
     x: e.pageX,
     y: e.pageY,
@@ -95,23 +80,20 @@ function positionDetailCanvas (e: MouseEvent) {
   })
 }
 
-async function getImg (img = defaultImg) {
+async function getImg(img = defaultImg) {
   data.defaultImgElement = await canvasUseCases.loadImg(img)
   data.borderImgElement = await canvasUseCases.loadImg(borderImg)
 }
 
-function update (e: MouseEvent) {
+function update(e: MouseEvent) {
   if (!canvasRef.value) {
     return
   }
 
-  const color = canvasUseCases.getColorFromPixel(
-    canvasRef.value,
-    {
-      x: e.pageX,
-      y: e.pageY
-    }
-  )
+  const color = canvasUseCases.getColorFromPixel(canvasRef.value, {
+    x: e.pageX,
+    y: e.pageY
+  })
 
   positionDetailCanvas(e)
 
@@ -120,11 +102,7 @@ function update (e: MouseEvent) {
 }
 
 function draw() {
-  if (
-    !canvasRef.value ||
-    !canvasDetailRef.value ||
-    !data.defaultImgElement
-  ) return
+  if (!canvasRef.value || !canvasDetailRef.value || !data.defaultImgElement) return
 
   canvasUseCases.setCanvasViewport(canvasRef.value)
   canvasUseCases.drawImgIntoCanvasFullWidth(canvasRef.value, data.defaultImgElement)
@@ -136,7 +114,6 @@ function draw() {
 async function restart(img = defaultImg) {
   await getImg(img)
   draw()
-
 }
 
 function mouseEnter() {
@@ -146,11 +123,15 @@ function mouseEnter() {
 
 onMounted(restart)
 
-window.addEventListener('resize', () => {
-  if (!data.hasFrameBeenProcessed) return
+window.addEventListener(
+  'resize',
+  () => {
+    if (!data.hasFrameBeenProcessed) return
 
-  requestAnimationFrame(draw)
-}, false)
+    requestAnimationFrame(draw)
+  },
+  false
+)
 </script>
 
 <style lang="postcss">

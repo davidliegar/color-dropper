@@ -9,25 +9,30 @@ describe('color Dropper', () => {
   let canvasUseCases: ReturnType<typeof provideCanvasUseCases>
   let loadImgSpy: MockInstance
   let drawSpy: MockInstance
-  
+
   beforeEach(() => {
     canvasUseCases = provideCanvasUseCases()
-  
+
     loadImgSpy = vi.spyOn(canvasUseCases, 'loadImg')
     const img = new Image()
     loadImgSpy.mockImplementation(() => Promise.resolve(img))
-  
+
     drawSpy = vi.spyOn(canvasUseCases, 'drawImgIntoCanvasFullWidth')
     drawSpy.mockImplementation(() => Promise.resolve())
 
-    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback: FrameRequestCallback): number => { callback(0); return 0; });
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation(
+      (callback: FrameRequestCallback): number => {
+        callback(0)
+        return 0
+      }
+    )
   })
 
   afterEach(() => {
     cleanup()
-  }) 
+  })
 
-  it('renders ColorDropper and calls the useCases necessary to render the canvas', async () => { 
+  it('renders ColorDropper and calls the useCases necessary to render the canvas', async () => {
     render(ColorDropper, {
       global: {
         provide: {
@@ -37,7 +42,7 @@ describe('color Dropper', () => {
     })
 
     await waitFor(() => expect(drawSpy).toHaveBeenCalledOnce())
-    
+
     expect(loadImgSpy).toHaveBeenCalledTimes(2)
   })
 
@@ -60,9 +65,9 @@ describe('color Dropper', () => {
     await userEvent.pointer([
       { keys: '[TouchA>]', target: screen.getByTestId('canvas') },
       { pointerName: 'TouchA', coords: { x: 200, y: 200 } },
-      { keys: '[/TouchA]'},
+      { keys: '[/TouchA]' }
     ])
-    
+
     expect(getColorSpy).toHaveBeenCalledOnce()
   })
 })

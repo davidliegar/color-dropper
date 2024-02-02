@@ -1,4 +1,4 @@
 export enum ToolEnum {
-  ColorDropper = "ColorDropper",
-  Zoom = "Zoom"
+  ColorDropper = 'ColorDropper',
+  Zoom = 'Zoom'
 }

@@ -13,7 +13,7 @@ describe('toolBox Component', () => {
       color: {
         R: 123,
         G: 10,
-        B: 24,
+        B: 24
       }
     }
 
@@ -25,17 +25,16 @@ describe('toolBox Component', () => {
       },
 
       props
-    }) 
+    })
 
     screen.getByText(canvasUseCases.rgbToHex(props.color))
 
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'rgb') 
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'rgb')
 
     screen.getByText('rgb(123, 10, 24)')
 
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'hsl') 
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'hsl')
 
     screen.getByText(canvasUseCases.rgbToHsl(props.color))
-
   })
 })

@@ -9,7 +9,7 @@ import {
   rgbToHsl
 } from '@/core/canvas'
 
-export function provideCanvasUseCases () {
+export function provideCanvasUseCases() {
   return {
     getColorFromPixel: getColorFromPixel(),
     setCanvasViewport: setCanvasViewport(),

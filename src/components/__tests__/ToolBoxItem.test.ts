@@ -14,7 +14,7 @@ describe('toolBox Component', () => {
       props
     })
 
-    screen.getByText ('label')
+    screen.getByText('label')
 
     await fireEvent.update(screen.getByRole('checkbox'))
     expect(emitted()).toHaveProperty('update:modelValue')

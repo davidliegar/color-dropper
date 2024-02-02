@@ -1,37 +1,26 @@
 <template>
   <aside class="toolbox">
     <div>
-      <h1 class="title">
-        Color dropper
-      </h1>
-      
-      <picsart-input-file
-        class="input"
-        @change="handleImg"
-      />
-  
+      <h1 class="title">Color dropper</h1>
+
+      <picsart-input-file class="input" @change="handleImg" />
+
       <hr />
-  
-      <h2 class="subtitle">
-        Tools 
-      </h2>
-  
-      <tool-box-item 
+
+      <h2 class="subtitle">Tools</h2>
+
+      <tool-box-item
         id="Color"
         icon="IconColorPicker.svg"
         label="Color dropper"
         v-model="form.colorDropper"
       />
-  
+
       <picasrt-slider v-model="form.zoom" />
     </div>
-    
+
     <div class="savedColors">
-      <tool-box-color
-        v-for="(color, index) in props.savedColors"
-        :key="index"
-        :color="color"
-      />
+      <tool-box-color v-for="(color, index) in props.savedColors" :key="index" :color="color" />
     </div>
   </aside>
 </template>
@@ -48,7 +37,7 @@ import ToolBoxColor from './ToolBoxColor.vue'
 type Model = Record<ToolEnum, boolean | number>
 
 const props = defineProps<{
-  savedColors: Color[],
+  savedColors: Color[]
   modelValue: Model
 }>()
 
@@ -59,7 +48,7 @@ const emit = defineEmits<{
 
 const form = reactive({
   colorDropper: !!props.modelValue.ColorDropper,
-  zoom: (typeof props.modelValue.Zoom === 'number') ? props.modelValue.Zoom : 70
+  zoom: typeof props.modelValue.Zoom === 'number' ? props.modelValue.Zoom : 70
 })
 
 watchEffect(() => {
@@ -69,7 +58,7 @@ watchEffect(() => {
   })
 })
 
-function handleImg (event: Event) {
+function handleImg(event: Event) {
   const file = (event.target as HTMLInputElement)?.files?.[0]
   if (file) {
     emit('handleImg', URL.createObjectURL(file))
@@ -83,7 +72,7 @@ function handleImg (event: Event) {
   top: 30px;
   left: 30px;
   width: 300px;
-  background:  var(--bg);
+  background: var(--bg);
   border-radius: 16px;
   box-shadow: var(--shadow-large);
   backdrop-filter: blur(8.2px);
@@ -123,7 +112,7 @@ function handleImg (event: Event) {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color:  var(--grey-500);
+    background-color: var(--grey-500);
   }
 }
 

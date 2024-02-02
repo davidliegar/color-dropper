@@ -1,26 +1,22 @@
 <template>
   <div class="file-upload">
-    <input 
-      id="file-upload" 
-      type="file" 
+    <input
+      id="file-upload"
+      type="file"
       accept="image/png, image/gif, image/jpeg"
       @change="emit('on-new-file', $event)"
     />
-    <label class="label" for="file-upload">
-      Choose File
-    </label>
+    <label class="label" for="file-upload"> Choose File </label>
   </div>
 </template>
 
 <script setup lang="ts">
-
 const emit = defineEmits<{
   'on-new-file': [event: Event]
 }>()
 </script>
 
 <style lang="postcss" scoped>
-
 .file-upload {
   width: 100%;
 

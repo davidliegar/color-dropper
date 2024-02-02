@@ -1,13 +1,8 @@
 <template>
   <div>
-    <input 
-      :id="props.id.toString()"
-      class="input"
-      type="checkbox" 
-      v-model="model"
-    >
+    <input :id="props.id.toString()" class="input" type="checkbox" v-model="model" />
     <label class="label" :for="props.id.toString()">
-      <img class="img" :src="imageUrl">
+      <img class="img" :src="imageUrl" />
       {{ props.label }}
     </label>
   </div>

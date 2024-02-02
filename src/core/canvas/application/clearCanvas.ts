@@ -1,5 +1,5 @@
-export function clearCanvas () {
-  return async (canvas: HTMLCanvasElement) => {   
+export function clearCanvas() {
+  return async (canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
