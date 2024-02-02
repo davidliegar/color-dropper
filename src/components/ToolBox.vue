@@ -59,7 +59,7 @@ const emit = defineEmits<{
 
 const form = reactive({
   colorDropper: !!props.modelValue.ColorDropper,
-  zoom: (typeof props.modelValue.Zoom === 'number') ? props.modelValue.Zoom : 50
+  zoom: (typeof props.modelValue.Zoom === 'number') ? props.modelValue.Zoom : 70
 })
 
 watchEffect(() => {

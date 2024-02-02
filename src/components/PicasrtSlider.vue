@@ -33,8 +33,8 @@ export interface RangeSliderProps {
 }
 
 const props = withDefaults(defineProps<RangeSliderProps>(), {
-  min: 20,
-  max: 200,
+  min: 12,
+  max: 500,
   step: 1
 })
 

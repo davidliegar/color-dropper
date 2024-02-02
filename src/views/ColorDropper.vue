@@ -80,7 +80,8 @@ function positionDetailCanvas (e: MouseEvent) {
   if (
     !canvasRef.value ||
     !canvasDetailRef.value ||
-    !data.borderImgElement
+    !data.borderImgElement ||
+    !data.currentColor
   ) return
 
   canvasUseCases.zoomImgToCanvas(canvasDetailRef.value, canvasRef.value, {
@@ -89,6 +90,7 @@ function positionDetailCanvas (e: MouseEvent) {
     cropWidth: 300,
     x: e.pageX,
     y: e.pageY,
+    color: canvasUseCases.rgbToHex(data.currentColor)
   })
 }
 
@@ -102,7 +104,6 @@ function update (e: MouseEvent) {
     return
   }
 
-  positionDetailCanvas(e)
 
   const color = canvasUseCases.getColorFromPixel(
     canvasRef.value,
@@ -111,6 +112,9 @@ function update (e: MouseEvent) {
       y: e.pageY
     }
   )
+
+  positionDetailCanvas(e)
+
 
   data.currentColor = color
   data.hasFrameBeenProcessed = true
