@@ -5,6 +5,7 @@
   >
     <div class="color" />
     <div class="backdrop" />
+
     {{ formatToShow }}
 
     <select 

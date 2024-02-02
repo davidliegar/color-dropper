@@ -10,6 +10,7 @@
 
     <canvas 
       ref="canvasRef"
+      data-testid="canvas"
       class="canvas"
       @mousemove="getColor"
       @click="saveColor"
@@ -49,7 +50,7 @@ const data = reactive<Data>({
     [ToolEnum.ColorDropper]: false,
     [ToolEnum.Zoom]: 50
   },
-  hasFrameBeenProcessed: true,
+  hasFrameBeenProcessed: false,
   savedColors: []
 })
 
@@ -104,7 +105,6 @@ function update (e: MouseEvent) {
     return
   }
 
-
   const color = canvasUseCases.getColorFromPixel(
     canvasRef.value,
     {
@@ -115,18 +115,17 @@ function update (e: MouseEvent) {
 
   positionDetailCanvas(e)
 
-
   data.currentColor = color
   data.hasFrameBeenProcessed = true
 }
 
-function draw () {
+function draw() {
   if (
     !canvasRef.value ||
     !canvasDetailRef.value ||
     !data.defaultImgElement
   ) return
-  
+
   canvasUseCases.setCanvasViewport(canvasRef.value)
   canvasUseCases.drawImgIntoCanvasFullWidth(canvasRef.value, data.defaultImgElement)
 
@@ -134,7 +133,7 @@ function draw () {
   data.hasFrameBeenProcessed = true
 }
 
-async function restart (img = defaultImg) {
+async function restart(img = defaultImg) {
   await getImg(img)
   draw()
 
