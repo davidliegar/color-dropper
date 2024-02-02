@@ -25,23 +25,23 @@ const props = defineProps<{
 
 const colorFormat = ref<'hex' | 'rgb' | 'hsl'>('hex')
 
-const hexColor = computed(() => {
+const hexcolor = computed(() => {
   return canvasUseCases.rgbToHex(props.color)
 })
 
-const hslColor = computed(() => {
+const hslcolor = computed(() => {
   return canvasUseCases.rgbToHsl(props.color)
 })
 
-const rgbColor = computed(() => {
+const rgbcolor = computed(() => {
   return `rgb(${props.color.R}, ${props.color.G}, ${props.color.B})`
 })
 
 const formatToShow = computed(() => {
   return {
-    hex: hexColor.value,
-    rgb: rgbColor.value,
-    hsl: hslColor.value
+    hex: hexcolor.value,
+    rgb: rgbcolor.value,
+    hsl: hslcolor.value
   }[colorFormat.value]
 })
 
