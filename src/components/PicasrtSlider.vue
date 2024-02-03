@@ -1,6 +1,6 @@
 <template>
   <div class="range-slider">
-    <div v-show="data.showLabel" ref="label" class="range-slider-label">Lens zoom: {{ model }}</div>
+    <div v-show="data.showLabel" ref="label" class="range-slider-label">Zoom lens: {{ model }}</div>
     <input
       id="range"
       v-model="model"
