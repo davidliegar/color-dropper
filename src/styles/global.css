@@ -10,15 +10,14 @@ img {
   /* Colors */
   --white: #fff;
   --back: #000;
-  --grey-300: #eeeeee;
+
+  --grey-300: #eee;
   --grey-500: #ccc;
   --grey-700: #64635f;
-  --grey-900: #292929;
 
   /* Semantic colors */
   --bg: rgba(255, 255, 255, 0.35);
-
-  --blur: blur(8.2px);
+  --active-color: rgba(33, 150, 243, 0.5);
 
   /* Sizes  */
   --size-4: 0.4rem;
@@ -36,6 +35,8 @@ img {
   --shadow-medium: 0 6px 24px -2px rgb(54 54 54 / 8%), 0 4px 8px rgb(54 54 54 / 4%);
   --shadow-large: 0 36px 72px rgb(54 54 54 / 8%), 0 8px 24px rgb(54 54 54 / 8%),
     0 2px 8px rgb(54 54 54 / 4%);
+
+  --blur: blur(8.2px);
 }
 
 html,

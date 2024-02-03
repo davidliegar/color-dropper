@@ -3,7 +3,7 @@
     <div class="handle" @click="toggleClose">
       <span :class="{ rotate: !data.isClosed }">&rsaquo;</span>
     </div>
-    <div>
+    <div class="tool-wrapper">
       <h1 class="title">Color dropper</h1>
 
       <picsart-input-file class="input" @change="handleImg" />
@@ -19,11 +19,18 @@
         v-model="form.colorDropper"
       />
 
-      <picasrt-slider v-model="form.zoom" />
+      <picsart-slider v-model="form.zoom">Zoom lens</picsart-slider>
+
+      <picsart-switch v-model="form.useAlpha">Use alpha channel</picsart-switch>
     </div>
 
-    <div class="saved-colors">
-      <tool-box-color v-for="(color, index) in props.savedColors" :key="index" :color="color" />
+    <div class="saved-colors" v-if="props.savedColors.length > 0">
+      <tool-box-color
+        v-for="(color, index) in props.savedColors"
+        :key="index"
+        :color="color"
+        :use-alpha="form.useAlpha"
+      />
     </div>
   </aside>
 </template>
@@ -31,12 +38,12 @@
 <script lang="ts" setup>
 import { ToolEnum } from '@/core/tools'
 import ToolBoxItem from './ToolBoxItem.vue'
-import PicasrtSlider from './PicasrtSlider.vue'
+import PicsartSlider from './PicsartSlider.vue'
 import PicsartInputFile from './PicsartInputFile.vue'
 import type { Color } from '@/core/canvas'
 import { reactive, watchEffect } from 'vue'
 import ToolBoxColor from './ToolBoxColor.vue'
-
+import PicsartSwitch from './PicsartSwitch.vue'
 type Model = Record<ToolEnum, boolean | number>
 
 const props = defineProps<{
@@ -55,13 +62,15 @@ const data = reactive({
 
 const form = reactive({
   colorDropper: !!props.modelValue.ColorDropper,
-  zoom: typeof props.modelValue.Zoom === 'number' ? props.modelValue.Zoom : 70
+  zoom: typeof props.modelValue.Zoom === 'number' ? props.modelValue.Zoom : 70,
+  useAlpha: !!props.modelValue.AlphaChannel
 })
 
 watchEffect(() => {
   emit('update:modelValue', {
     [ToolEnum.ColorDropper]: form.colorDropper,
-    [ToolEnum.Zoom]: form.zoom
+    [ToolEnum.Zoom]: form.zoom,
+    [ToolEnum.AlphaChannel]: form.useAlpha
   })
 })
 
@@ -78,6 +87,11 @@ function toggleClose() {
 </script>
 
 <style lang="postcss" scoped>
+.tool-wrapper {
+  display: grid;
+  gap: var(--size-16);
+}
+
 .toolbox {
   --left: 30px;
   --width: calc(100% - 2 * var(--left));
@@ -137,21 +151,22 @@ function toggleClose() {
   & .title {
     font-size: var(--size-24);
     font-weight: 700;
-    margin-block-end: var(--size-32);
   }
 
   & hr {
     border-color: var(--bg);
+    width: 100%;
   }
 
   & .subtitle {
     font-size: var(--size-24);
     font-weight: 500;
-    margin-block: var(--size-16);
   }
 }
 
 .saved-colors {
+  display: grid;
+  gap: var(--size-8);
   margin-block-start: var(--size-8);
   overflow: auto;
   scrollbar-width: thin;
@@ -165,9 +180,5 @@ function toggleClose() {
   &::-webkit-scrollbar-thumb {
     background-color: var(--grey-500);
   }
-}
-
-.input {
-  margin-block: var(--size-16);
 }
 </style>

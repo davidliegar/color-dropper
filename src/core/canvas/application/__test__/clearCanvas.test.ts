@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { provideCanvasUseCases } from '@/core/canvas'
 import 'jest-canvas-mock'
 
-describe('rgbToHex useCase', () => {
+describe('colorToHex useCase', () => {
   it('return an hex color from a color type', async () => {
     const canvas = document.createElement('canvas')
     const canvasUseCases = provideCanvasUseCases()

@@ -80,6 +80,7 @@ export function zoomImgToCanvas() {
     )
 
     ctx.font = '45px Sans-serif'
-    ctx.fillText(options.color.toUpperCase(), mouseX - 100, mouseY + 100)
+    ctx.textAlign = 'center'
+    ctx.fillText(options.color.toUpperCase(), mouseX, mouseY + 100)
   }
 }

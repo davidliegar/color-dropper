@@ -14,7 +14,8 @@ describe('toolBox Component', () => {
         {
           R: 123,
           G: 10,
-          B: 24
+          B: 24,
+          A: 255
         }
       ]
     }
@@ -29,6 +30,8 @@ describe('toolBox Component', () => {
       props
     })
 
-    screen.getByText(canvasUseCases.rgbToHex(props.savedColors[0]))
+    screen.getByText(canvasUseCases.colorToHex(props.savedColors[0], { useAlpha: false }), {
+      exact: false
+    })
   })
 })

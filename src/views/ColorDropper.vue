@@ -46,7 +46,8 @@ interface Data {
 const data = reactive<Data>({
   currentTools: {
     [ToolEnum.ColorDropper]: false,
-    [ToolEnum.Zoom]: 50
+    [ToolEnum.Zoom]: 50,
+    [ToolEnum.AlphaChannel]: false
   },
   hasFrameBeenProcessed: false,
   savedColors: []
@@ -78,7 +79,9 @@ function positionDetailCanvas(e: MouseEvent) {
     cropWidth: 300,
     x: e.offsetX,
     y: e.offsetY,
-    color: canvasUseCases.rgbToHex(data.currentColor)
+    color: canvasUseCases.colorToHex(data.currentColor, {
+      useAlpha: !!data.currentTools.AlphaChannel
+    })
   })
 }
 

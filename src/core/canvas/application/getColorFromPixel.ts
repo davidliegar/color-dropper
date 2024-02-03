@@ -18,7 +18,8 @@ export function getColorFromPixel() {
     const color = {
       R: pxData.data[0],
       G: pxData.data[1],
-      B: pxData.data[2]
+      B: pxData.data[2],
+      A: pxData.data[3]
     }
 
     return color

@@ -1,21 +1,24 @@
 <template>
-  <div class="range-slider">
-    <div v-show="data.showLabel" ref="label" class="range-slider-label">Zoom lens: {{ model }}</div>
-    <input
-      id="range"
-      v-model="model"
-      class="range-slider-input"
-      type="range"
-      :data-range="model"
-      :min="props.min"
-      :max="props.max"
-      :step="props.step"
-      @touchstart="data.showLabel = true"
-      @touchend="data.showLabel = false"
-      @mouseover="data.showLabel = true"
-      @mouseleave="data.showLabel = false"
-      @keydown.prevent="() => {}"
-    />
+  <div class="range-slider-wrapper">
+    <span><slot /></span>
+    <div class="range-slider">
+      <div v-show="data.showLabel" ref="label" class="range-slider-label">{{ model }}</div>
+      <input
+        id="range"
+        v-model="model"
+        class="range-slider-input"
+        type="range"
+        :data-range="model"
+        :min="props.min"
+        :max="props.max"
+        :step="props.step"
+        @touchstart="data.showLabel = true"
+        @touchend="data.showLabel = false"
+        @mouseover="data.showLabel = true"
+        @mouseleave="data.showLabel = false"
+        @keydown.prevent="() => {}"
+      />
+    </div>
   </div>
 </template>
 
@@ -54,16 +57,23 @@ onMounted(() => {
 function updateSlider() {
   const percent = (100 * ((model.value ?? 0) - props.min)) / (props.max - props.min)
   if (label.value) {
-    label.value.style.left = `calc(${percent}%`
+    label.value.style.left = `${percent}%`
   }
 }
 </script>
 
 <style lang="postcss" scoped>
+.range-slider-wrapper {
+  display: grid;
+  grid-template-columns: max-content auto;
+  align-items: center;
+  gap: var(--size-8);
+}
+
 .range-slider {
   width: 100%;
   position: relative;
-  padding: 1rem 0;
+  min-height: var(--size-24);
 }
 
 .range-slider-input {
@@ -110,7 +120,7 @@ function updateSlider() {
   align-items: center;
   border-radius: 0.4rem;
   padding: 0.5rem;
-  top: -2.3rem;
+  top: -2.8rem;
   background: var(--grey-700);
   box-shadow: var(--shadow-large);
   font-size: var(--size-12);

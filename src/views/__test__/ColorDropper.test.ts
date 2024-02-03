@@ -48,7 +48,7 @@ describe('color Dropper', () => {
 
   it('select color dropper tool and moves the mouse over the canvas', async () => {
     const getColorSpy = vi.spyOn(canvasUseCases, 'getColorFromPixel')
-    getColorSpy.mockImplementation(() => ({ R: 10, G: 10, B: 10 }))
+    getColorSpy.mockImplementation(() => ({ R: 10, G: 10, B: 10, A: 255 }))
 
     render(ColorDropper, {
       global: {
@@ -60,7 +60,7 @@ describe('color Dropper', () => {
 
     await waitFor(() => expect(drawSpy).toHaveBeenCalledOnce())
 
-    await fireEvent.update(screen.getByRole('checkbox'))
+    await fireEvent.update(screen.getAllByRole('checkbox')[0])
 
     await userEvent.pointer([
       { keys: '[TouchA>]', target: screen.getByTestId('canvas') },

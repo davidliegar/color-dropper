@@ -1,7 +1,7 @@
-import type { Color, HslColor } from '../domain'
+import type { Color, HslColor, HslaColor } from '../domain'
 
-export function rgbToHsl() {
-  return (color: Color): HslColor => {
+export function colorToHsl() {
+  return (color: Color, options: { useAlpha: boolean }): HslColor | HslaColor => {
     const R = color.R / 255
     const G = color.G / 255
     const B = color.B / 255
@@ -36,6 +36,12 @@ export function rgbToHsl() {
 
     s = Math.round(s * 100)
     l = Math.round(l * 100)
+
+    if (options?.useAlpha) {
+      const alpha = (color.A / 255).toFixed(2)
+
+      return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
+    }
 
     return `hsl(${h}, ${s}%, ${l}%)`
   }

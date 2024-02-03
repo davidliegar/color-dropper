@@ -3,10 +3,11 @@ import {
   setCanvasViewport,
   drawImgIntoCanvasFullWidth,
   loadImg,
-  rgbToHex,
+  colorToHex,
   zoomImgToCanvas,
   clearCanvas,
-  rgbToHsl
+  colorToHsl,
+  colorToRgb
 } from '@/core/canvas'
 
 export function provideCanvasUseCases() {
@@ -14,10 +15,11 @@ export function provideCanvasUseCases() {
     getColorFromPixel: getColorFromPixel(),
     setCanvasViewport: setCanvasViewport(),
     drawImgIntoCanvasFullWidth: drawImgIntoCanvasFullWidth(),
-    rgbToHex: rgbToHex(),
+    colorToHex: colorToHex(),
     zoomImgToCanvas: zoomImgToCanvas(),
     loadImg: loadImg(),
     clearCanvas: clearCanvas(),
-    rgbToHsl: rgbToHsl()
+    colorToHsl: colorToHsl(),
+    colorToRgb: colorToRgb()
   }
 }

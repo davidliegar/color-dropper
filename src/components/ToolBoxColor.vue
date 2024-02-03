@@ -5,10 +5,10 @@
 
     {{ formatToShow }}
 
-    <select v-model="colorFormat" class="select" name="colors" id="colors">
-      <option value="hex">Hex</option>
-      <option value="rgb">RGB</option>
-      <option value="hsl">HSL</option>
+    <select v-model="colorFormat" class="select" name="colors">
+      <option value="hex">{{ hexPrefix }}</option>
+      <option value="rgb">{{ rgbPrefix }}</option>
+      <option value="hsl">{{ hslPrefix }}</option>
     </select>
   </div>
 </template>
@@ -21,25 +21,44 @@ const canvasUseCases = injectStrict(CANVAS_USE_CASES)
 
 const props = defineProps<{
   color: Color
+  useAlpha: boolean
 }>()
 
 const colorFormat = ref<'hex' | 'rgb' | 'hsl'>('hex')
 
+const hexPrefix = computed(() => {
+  return props.useAlpha ? 'hexa' : 'hex'
+})
+
 const hexcolor = computed(() => {
-  return canvasUseCases.rgbToHex(props.color)
+  return canvasUseCases.colorToHex(props.color, {
+    useAlpha: props.useAlpha
+  })
+})
+
+const hslPrefix = computed(() => {
+  return props.useAlpha ? 'hsla' : 'hsl'
 })
 
 const hslcolor = computed(() => {
-  return canvasUseCases.rgbToHsl(props.color)
+  return canvasUseCases.colorToHsl(props.color, {
+    useAlpha: props.useAlpha
+  })
+})
+
+const rgbPrefix = computed(() => {
+  return props.useAlpha ? 'rgba' : 'rgb'
 })
 
 const rgbcolor = computed(() => {
-  return `rgb(${props.color.R}, ${props.color.G}, ${props.color.B})`
+  return canvasUseCases.colorToRgb(props.color, {
+    useAlpha: props.useAlpha
+  })
 })
 
 const formatToShow = computed(() => {
   return {
-    hex: hexcolor.value,
+    hex: `${hexPrefix.value}: ${hexcolor.value}`,
     rgb: rgbcolor.value,
     hsl: hslcolor.value
   }[colorFormat.value]
@@ -53,12 +72,10 @@ function toClipBoard() {
 <style lang="postcss" scoped>
 .tool-box-color {
   width: 100%;
-  height: var(--size-32);
   display: grid;
   grid-template-columns: 24px auto min-content;
   align-items: center;
   padding: 0 0.5em;
-  margin-block: var(--size-8);
   gap: var(--size-8);
   font-size: var(--size-12);
   position: relative;
@@ -88,7 +105,7 @@ function toClipBoard() {
   border-radius: var(--radius-sm);
   display: inline-block;
   line-height: 1.5em;
-  padding: 0.5em 3.5rem 0.5em 1em;
+  padding: 0.5em 4.5rem 0.5em 1em;
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--white) 50%),
     linear-gradient(135deg, var(--white) 50%, transparent 50%),
