@@ -1,8 +1,6 @@
 <template>
   <div class="range-slider">
-    <div v-show="data.showLabel" ref="label" class="range-slider-label">
-      {{ model }}
-    </div>
+    <div v-show="data.showLabel" ref="label" class="range-slider-label">Lens zoom: {{ model }}</div>
     <input
       id="range"
       v-model="model"
@@ -12,6 +10,8 @@
       :min="props.min"
       :max="props.max"
       :step="props.step"
+      @touchstart="data.showLabel = true"
+      @touchend="data.showLabel = false"
       @mouseover="data.showLabel = true"
       @mouseleave="data.showLabel = false"
       @keydown.prevent="() => {}"
@@ -53,9 +53,9 @@ onMounted(() => {
 
 function updateSlider() {
   const percent = (100 * ((model.value ?? 0) - props.min)) / (props.max - props.min)
-  const labelPosition = -13 - percent * 0.2
-
-  if (label.value) label.value.style.left = `calc(${percent}% + (${labelPosition}px))`
+  if (label.value) {
+    label.value.style.left = `calc(${percent}%`
+  }
 }
 </script>
 
@@ -80,9 +80,9 @@ function updateSlider() {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background: var(--bg);
+    background: var(--white);
     box-shadow: var(--shadow-large);
-    backdrop-filter: blur(8.2px);
+    backdrop-filter: var(--blur);
     border: 1px solid var(--white);
     cursor: pointer;
     transition: background 0.15s ease-in-out;
@@ -93,8 +93,8 @@ function updateSlider() {
     height: 2rem;
     border-radius: 50%;
     box-shadow: var(--shadow-large);
-    backdrop-filter: blur(8.2px);
-    background: rgb(255 255 255 / 70%);
+    backdrop-filter: var(--blur);
+    background: var(--white);
     border: 1px solid var(--white);
     cursor: pointer;
     transition: background 0.15s ease-in-out;
@@ -105,16 +105,17 @@ function updateSlider() {
   box-sizing: border-box;
   display: inline-flex;
   position: absolute;
-  width: 4.5rem;
+  width: max-content;
   justify-content: center;
   align-items: center;
   border-radius: 0.4rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   top: -2.3rem;
   background: var(--grey-700);
   box-shadow: var(--shadow-large);
   font-size: var(--size-12);
-  color: white;
+  color: var(--white);
+  transform: translateX(-50%);
 
   &::after {
     position: absolute;

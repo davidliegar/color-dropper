@@ -34,7 +34,7 @@ const emit = defineEmits<{
     background: var(--bg);
     border-radius: 16px;
     box-shadow: var(--shadow-large);
-    backdrop-filter: blur(8.2px);
+    backdrop-filter: var(--blur);
     border: 1px solid var(--white);
 
     &:hover {

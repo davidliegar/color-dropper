@@ -7,15 +7,17 @@
       @mouseenter="mouseEnter"
     />
 
-    <canvas
-      ref="canvasRef"
-      data-testid="canvas"
-      class="canvas"
-      @mousemove="getColor"
-      @click="saveColor"
-    />
+    <div class="canvas-wrapper">
+      <canvas
+        ref="canvasRef"
+        data-testid="canvas"
+        class="canvas"
+        @mousemove="getColor"
+        @click="saveColor"
+      />
 
-    <canvas ref="canvasDetailRef" class="canvas-detail" />
+      <canvas ref="canvasDetailRef" class="canvas-detail" />
+    </div>
   </main>
 </template>
 
@@ -74,8 +76,8 @@ function positionDetailCanvas(e: MouseEvent) {
     img: data.borderImgElement,
     zoom: typeof data.currentTools.Zoom === 'number' ? data.currentTools.Zoom : 50,
     cropWidth: 300,
-    x: e.pageX,
-    y: e.pageY,
+    x: e.offsetX,
+    y: e.offsetY,
     color: canvasUseCases.rgbToHex(data.currentColor)
   })
 }
@@ -91,8 +93,8 @@ function update(e: MouseEvent) {
   }
 
   const color = canvasUseCases.getColorFromPixel(canvasRef.value, {
-    x: e.pageX,
-    y: e.pageY
+    x: e.offsetX,
+    y: e.offsetY
   })
 
   positionDetailCanvas(e)
@@ -135,6 +137,10 @@ window.addEventListener(
 </script>
 
 <style lang="postcss">
+.canvas-wrapper {
+  position: relative;
+}
+
 .canvas-detail {
   position: absolute;
   top: 0;

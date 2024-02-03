@@ -17,7 +17,8 @@ img {
 
   /* Semantic colors */
   --bg: rgba(255, 255, 255, 0.35);
-  --bg-negative: var(--grey-900);
+
+  --blur: blur(8.2px);
 
   /* Sizes  */
   --size-4: 0.4rem;
